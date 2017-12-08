@@ -13,7 +13,7 @@ namespace PapaBobsMegaChallenge
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Page.IsPostBack) updateTotal();
-        }
+         }
 
         private void updateTotal()
         {
@@ -30,10 +30,6 @@ namespace PapaBobsMegaChallenge
             }
             else totalLabel.Text = "";
         }
-
-       
-
-        
 
         protected void orderButton_Click(object sender, EventArgs e)
         {
