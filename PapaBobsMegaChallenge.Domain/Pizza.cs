@@ -9,6 +9,7 @@ namespace PapaBobsMegaChallenge.Domain
 
     public enum Size { small, medium, large }
     public enum Crust { regular, thin, thick }
+    public enum Payment { cash, credit }
 
     public class Pizza
     {

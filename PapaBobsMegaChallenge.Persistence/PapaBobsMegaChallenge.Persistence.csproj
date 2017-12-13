@@ -69,6 +69,7 @@
     <Compile Include="Order.cs">
       <DependentUpon>BobsPizzaEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrderRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PapaBobsMegaChallenge.DTO\PapaBobsMegaChallenge.DTO.csproj">
+      <Project>{91c9a68f-2a3a-4419-8ad8-1f2fbab81be5}</Project>
+      <Name>PapaBobsMegaChallenge.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

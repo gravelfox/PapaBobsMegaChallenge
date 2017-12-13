@@ -41,8 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ingredient.cs" />
+    <Compile Include="OrderManager.cs" />
     <Compile Include="Pizza.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PapaBobsMegaChallenge.DTO\PapaBobsMegaChallenge.DTO.csproj">
+      <Project>{91c9a68f-2a3a-4419-8ad8-1f2fbab81be5}</Project>
+      <Name>PapaBobsMegaChallenge.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PapaBobsMegaChallenge.Persistence\PapaBobsMegaChallenge.Persistence.csproj">
+      <Project>{8dead728-1cb8-4d6d-8769-12646c372618}</Project>
+      <Name>PapaBobsMegaChallenge.Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
