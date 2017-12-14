@@ -17,19 +17,39 @@ namespace PapaBobsMegaChallenge
 
         private void displayOrders()
         {
-            List<DTO.DTOOrder> Orders = Domain.OrderManager.GetOrders();
-            activeOrdersGridView.DataSource = Orders.Where(p => p.OrderFilled == false).ToList();
-            activeOrdersGridView.DataBind();
+            try
+            {
+                List<DTO.DTOOrder> Orders = Domain.OrderManager.GetOrders();
+                activeOrdersGridView.DataSource = Orders.Where(p => p.OrderFilled == false).ToList();
+                activeOrdersGridView.DataBind();
+            }
+            catch (Exception)
+            {
+                errorLabel.Text = "An unknown error occured displaying the orders.";   
+            }
+
         }
 
         protected void activeOrdersGridView_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            Guid orderId = new Guid();
-            if(!Guid.TryParse(activeOrdersGridView.Rows[index].Cells[1].Text, out orderId))
-                throw new OrderIdInvalidException();
-            Domain.OrderManager.CompleteOrder(orderId);
-            displayOrders();
+            try
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                Guid orderId = new Guid();
+                if (!Guid.TryParse(activeOrdersGridView.Rows[index].Cells[1].Text, out orderId))
+                    throw new OrderIdInvalidException();
+                Domain.OrderManager.CompleteOrder(orderId);
+                displayOrders();
+            }
+            catch (OrderIdInvalidException)
+            {
+                errorLabel.Text = "The order ID is not in a valid format.";
+            }
+            catch (Exception)
+            {
+                errorLabel.Text = "An unknown error occured.";
+            }
+
         }
         
     }

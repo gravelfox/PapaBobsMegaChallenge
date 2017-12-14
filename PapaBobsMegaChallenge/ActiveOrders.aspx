@@ -28,6 +28,7 @@
             </Columns>
         </asp:GridView>
     </div>
+        <asp:Label ID="errorLabel" runat="server" CssClass="bg-danger"></asp:Label>
     </form>
 </body>
 </html>

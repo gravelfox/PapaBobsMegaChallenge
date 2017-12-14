@@ -19,6 +19,8 @@ namespace PapaBobsMegaChallenge
         {
             if (crustDropDown.SelectedValue != "" && sizeDropDown.SelectedValue != "")
             {
+                //build a pizza object (which calculates its own price)
+                //and print its price.
                 Domain.Pizza Pizza = new Domain.Pizza(
                     sizeDropDown.SelectedValue,
                     crustDropDown.SelectedValue,
@@ -84,6 +86,8 @@ namespace PapaBobsMegaChallenge
 
         }
 
+
+        //use specifics of presentation layer to populate a DTO Order
         private DTO.DTOOrder populateOrder(Domain.Pizza pizza)
         {
             DTO.DTOOrder dtoOrder = new DTO.DTOOrder() { };
