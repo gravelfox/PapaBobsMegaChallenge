@@ -5,11 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:GridView ID="activeOrdersGridView" runat="server" AutoGenerateColumns="False" OnRowCommand="activeOrdersGridView_RowCommand">
+    <div class="container">
+        <asp:GridView ID="activeOrdersGridView" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" OnRowCommand="activeOrdersGridView_RowCommand">
             <Columns>
                 <asp:ButtonField Text="Order Complete" />
                 <asp:BoundField DataField="OrderID" HeaderText="Order ID" />
@@ -18,7 +19,7 @@
                 <asp:CheckBoxField DataField="Sausage" HeaderText="Sausage" />
                 <asp:CheckBoxField DataField="Pepperoni" HeaderText="Pepperoni" />
                 <asp:CheckBoxField DataField="Onions" HeaderText="Onion" />
-                <asp:CheckBoxField DataField="GPeppers" HeaderText="G Peppers" />
+                <asp:CheckBoxField DataField="GPeppers" HeaderText="Green Peppers" />
                 <asp:BoundField DataField="Price" DataFormatString="{0:C}" HeaderText="Price" />
                 <asp:BoundField DataField="CustomerName" HeaderText="Name" />
                 <asp:BoundField DataField="CustomerAddress" HeaderText="Address" />

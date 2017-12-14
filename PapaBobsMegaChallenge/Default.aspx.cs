@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using PapaBobsMegaChallenge.Domain.Exceptions;
 
 namespace PapaBobsMegaChallenge
 {
@@ -16,7 +17,7 @@ namespace PapaBobsMegaChallenge
 
         private void updateTotal()
         {
-            if (crustDropDown.SelectedValue != "0" && sizeDropDown.SelectedValue != "0")
+            if (crustDropDown.SelectedValue != "" && sizeDropDown.SelectedValue != "")
             {
                 Domain.Pizza Pizza = new Domain.Pizza(
                     sizeDropDown.SelectedValue,
@@ -32,31 +33,70 @@ namespace PapaBobsMegaChallenge
 
         protected void orderButton_Click(object sender, EventArgs e)
         {
-            var dtoOrder = new DTO.Order() { };
-            Domain.Pizza pizza = new Domain.Pizza(
-                    sizeDropDown.SelectedValue,
-                    crustDropDown.SelectedValue,
-                    sausageCheckBox.Checked,
-                    pepperoniCheckBox.Checked,
-                    onionsCheckBox.Checked,
-                    gPeppersCheckBox.Checked);
-            dtoOrder = populateOrder(pizza);
+            try
+            {
+                var dtoOrder = new DTO.DTOOrder() { };
+                if (sizeDropDown.SelectedValue == "") throw new NoSizeSelectedException();
+                if (crustDropDown.SelectedValue == "") throw new NoCrustSelectedException();
+                Domain.Pizza pizza = new Domain.Pizza(
+                        sizeDropDown.SelectedValue,
+                        crustDropDown.SelectedValue,
+                        sausageCheckBox.Checked,
+                        pepperoniCheckBox.Checked,
+                        onionsCheckBox.Checked,
+                        gPeppersCheckBox.Checked);
+                dtoOrder = populateOrder(pizza);
+                Domain.OrderManager.CreateOrder(dtoOrder);
+                Response.Redirect("./Success.aspx");
+            }
+            catch (NoSizeSelectedException)
+            {
+                errorLabel.Text = "You must select a size.";
+            }
+            catch (NoCrustSelectedException)
+            {
+                errorLabel.Text = "You must select a crust.";
+            }
+            catch (NullNameException)
+            {
+                errorLabel.Text = "You must enter a name.";
+            }
+            catch (NullAddressException)
+            {
+                errorLabel.Text = "You must enter an address.";
+            }
+            catch (NullZipException)
+            {
+                errorLabel.Text = "You must enter a zipcode.";
+            }
+            catch (InvalidZipException)
+            {
+                errorLabel.Text = "You must enter a valid zipcode with no special characters.";
+            }
+            catch (NullPhoneException)
+            {
+                errorLabel.Text = "You must enter a phone number.";
+            }
+            catch (NoPaymentSelectedException)
+            {
+                errorLabel.Text = "You must select a payment type.";
+            }
 
-            Domain.OrderManager.CreateOrder(dtoOrder);
-            Response.Redirect("./Success.aspx");
         }
 
-        private DTO.Order populateOrder(Domain.Pizza pizza)
+        private DTO.DTOOrder populateOrder(Domain.Pizza pizza)
         {
-            DTO.Order dtoOrder = new DTO.Order() { };
+            DTO.DTOOrder dtoOrder = new DTO.DTOOrder() { };
             dtoOrder.OrderId = Guid.NewGuid();
             dtoOrder.CustomerName = nameTextBox.Text;
             dtoOrder.CustomerAddress = addressTextBox.Text;
-            dtoOrder.CustomerZip = int.Parse(zipTextBox.Text);
+            int zip = 0;
+            if(!int.TryParse(zipTextBox.Text, out zip)) throw new InvalidZipException();
+            dtoOrder.CustomerZip = zip;
             dtoOrder.CustomerPhone = phoneTextBox.Text;
             dtoOrder.OrderFilled = false;
-            dtoOrder.Crust = (int)pizza.Crust;
-            dtoOrder.Size = (int)pizza.Size;
+            dtoOrder.Crust = pizza.Crust;
+            dtoOrder.Size = pizza.Size;
             dtoOrder.Sausage = sausageCheckBox.Checked;
             dtoOrder.Pepperoni = pepperoniCheckBox.Checked;
             dtoOrder.Onions = onionsCheckBox.Checked;

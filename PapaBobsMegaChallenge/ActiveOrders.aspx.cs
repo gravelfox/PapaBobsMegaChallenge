@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PapaBobsMegaChallenge.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,7 @@ namespace PapaBobsMegaChallenge
 
         private void displayOrders()
         {
-            List<DTO.Order> Orders = Domain.OrderManager.GetOrders();
+            List<DTO.DTOOrder> Orders = Domain.OrderManager.GetOrders();
             activeOrdersGridView.DataSource = Orders.Where(p => p.OrderFilled == false).ToList();
             activeOrdersGridView.DataBind();
         }
@@ -26,7 +27,7 @@ namespace PapaBobsMegaChallenge
             int index = Convert.ToInt32(e.CommandArgument);
             Guid orderId = new Guid();
             if(!Guid.TryParse(activeOrdersGridView.Rows[index].Cells[1].Text, out orderId))
-                throw new Exception("Order ID invalid");
+                throw new OrderIdInvalidException();
             Domain.OrderManager.CompleteOrder(orderId);
             displayOrders();
         }

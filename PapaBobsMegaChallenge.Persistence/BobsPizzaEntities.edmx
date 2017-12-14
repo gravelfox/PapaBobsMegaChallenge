@@ -22,7 +22,7 @@
           <Property Name="Onions" Type="bit" Nullable="false" />
           <Property Name="GPeppers" Type="bit" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
-          <Property Name="Payment" Type="bit" Nullable="false" />
+          <Property Name="Payment" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BobsPizzaModelStoreContainer">
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -41,18 +41,21 @@
           <Property Name="CustomerZip" Type="Int32" Nullable="false" />
           <Property Name="CustomerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OrderFilled" Type="Boolean" Nullable="false" />
-          <Property Name="Crust" Type="Int32" Nullable="false" />
-          <Property Name="Size" Type="Int32" Nullable="false" />
+          <Property Name="Crust" Type="BobsPizzaModel.Crust" Nullable="false" />
+          <Property Name="Size" Type="BobsPizzaModel.Size" Nullable="false" />
           <Property Name="Sausage" Type="Boolean" Nullable="false" />
           <Property Name="Pepperoni" Type="Boolean" Nullable="false" />
           <Property Name="Onions" Type="Boolean" Nullable="false" />
           <Property Name="GPeppers" Type="Boolean" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="Payment" Type="Boolean" Nullable="false" />
+          <Property Name="Payment" Type="BobsPizzaModel.Payment" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BobsPizzaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Orders" EntityType="Self.Order" />
         </EntityContainer>
+        <EnumType Name="Crust" a:ExternalTypeName="PapaBobsMegaChallenge.DTO.Crust" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="Size" a:ExternalTypeName="PapaBobsMegaChallenge.DTO.Size" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="Payment" a:ExternalTypeName="PapaBobsMegaChallenge.DTO.Payment" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

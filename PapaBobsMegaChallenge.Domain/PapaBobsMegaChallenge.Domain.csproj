@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InvalidZipException.cs" />
+    <Compile Include="Exceptions\NoCrustSelectedException.cs" />
+    <Compile Include="Exceptions\NoPaymentSelectedException.cs" />
+    <Compile Include="Exceptions\NoSizeSelectedException.cs" />
+    <Compile Include="Exceptions\NullAddressException.cs" />
+    <Compile Include="Exceptions\NullNameException.cs" />
+    <Compile Include="Exceptions\NullPhoneException.cs" />
+    <Compile Include="Exceptions\NullZipException.cs" />
+    <Compile Include="Exceptions\OrderIdInvalidException.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="OrderManager.cs" />
     <Compile Include="Pizza.cs" />

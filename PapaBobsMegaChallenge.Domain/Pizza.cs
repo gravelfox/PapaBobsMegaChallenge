@@ -3,27 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PapaBobsMegaChallenge.Domain.Exceptions;
 
 namespace PapaBobsMegaChallenge.Domain
 {
 
-    public enum Size { small, medium, large }
-    public enum Crust { regular, thin, thick }
-    public enum Payment { cash, credit }
+
 
     public class Pizza
     {
 
-        public Size Size { get; set; }
-        public Crust Crust { get; set; }
+        public DTO.Size Size { get; set; }
+        public DTO.Crust Crust { get; set; }
         public List<Ingredient> toppings { get; set; }
         public double Price { get; set; }
 
         public Pizza(string size, string crust, bool sausage, bool pepperoni, bool onions, bool gpeppers)
         {
             this.toppings = new List<Ingredient> { };
-            this.Size = (Size)Enum.Parse(typeof(Size), size);
-            this.Crust = (Crust)Enum.Parse(typeof(Crust), crust);
+            DTO.Size selectedSize;
+            if (!Enum.TryParse(size, out selectedSize)) throw new NoSizeSelectedException();
+            else this.Size = selectedSize;
+            DTO.Crust selectedCrust;
+            if (!Enum.TryParse(crust,out selectedCrust)) throw new NoCrustSelectedException();
+            else this.Crust = selectedCrust;
             if (sausage) this.toppings.Add(new Ingredient("Sausage", 2d));
             if (pepperoni) this.toppings.Add(new Ingredient("Pepperoni", 1.5));
             if (onions) this.toppings.Add(new Ingredient("Onions", 1d));
@@ -50,7 +53,7 @@ namespace PapaBobsMegaChallenge.Domain
         private double getCrustPrice()
         {
             double price = 0d;
-            if (this.Crust == Crust.thick) price = 2;
+            if (this.Crust == DTO.Crust.Thick) price = 2;
             return price;
         }
 
@@ -59,13 +62,13 @@ namespace PapaBobsMegaChallenge.Domain
             double price = 0d;
             switch (this.Size)
             {
-                case Size.small:
+                case DTO.Size.Small:
                     price += 12;
                     break;
-                case Size.medium:
+                case DTO.Size.Medium:
                     price += 14;
                     break;
-                case Size.large:
+                case DTO.Size.Large:
                     price += 16;
                     break;
             }

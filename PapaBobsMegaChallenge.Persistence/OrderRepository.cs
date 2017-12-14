@@ -8,15 +8,15 @@ namespace PapaBobsMegaChallenge.Persistence
 {
     public class OrderRepository
     {
-        public static List<DTO.Order> GetOrders()
+        public static List<DTO.DTOOrder> GetOrders()
         {
             BobsPizzaEntities db = new BobsPizzaEntities();
             var dbOrders = db.Orders.ToList();
-            var dtoOrders = new List<DTO.Order> { };
+            var dtoOrders = new List<DTO.DTOOrder> { };
 
             foreach (var dbOrder in dbOrders)
             {
-                var dtoOrder = new DTO.Order();
+                var dtoOrder = new DTO.DTOOrder();
                 dtoOrder.OrderId = dbOrder.OrderId;
                 dtoOrder.OrderFilled = dbOrder.OrderFilled;
                 dtoOrder.Crust = dbOrder.Crust;
@@ -45,7 +45,7 @@ namespace PapaBobsMegaChallenge.Persistence
             db.SaveChanges();
         }
 
-        public static void CreateOrder(DTO.Order dtoOrder)
+        public static void CreateOrder(DTO.DTOOrder dtoOrder)
         {
             BobsPizzaEntities db = new BobsPizzaEntities();
             Order dbOrder = new Order();
